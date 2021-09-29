@@ -1,0 +1,48 @@
+{
+ "components": [
+  {
+   "name": "dashboards",
+   "resources": []
+  },
+  {
+   "name": "calico",
+   "resources": [
+    {
+     "apiVersion": "v1",
+     "containers": [],
+     "kind": "Service",
+     "name": "calico-node",
+     "namespace": "kube-system"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/calico/kube-controllers",
+       "upstreamImage": "calico/kube-controllers",
+       "version": "v3.19.2"
+      }
+     ],
+     "kind": "Deployment",
+     "name": "calico-kube-controllers",
+     "namespace": "kube-system"
+    },
+    {
+     "apiVersion": "apps/v1",
+     "containers": [
+      {
+       "image": "registry.sighup.io/fury/calico/node",
+       "upstreamImage": "calico/node",
+       "version": "v3.19.2"
+      }
+     ],
+     "kind": "DaemonSet",
+     "name": "calico-node",
+     "namespace": "kube-system"
+    }
+   ]
+  }
+ ],
+ "module": "fury-kubernetes-networking",
+ "version": "v1.5.1"
+}
